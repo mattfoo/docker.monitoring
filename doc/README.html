@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="pandoc.css">
+</head>
+<body>
+<nav id="TOC">
+<ul>
+<li><a href="#allgemeines">Allgemeines</a></li>
+<li><a href="#aufbau">Aufbau</a><ul>
+<li><a href="#grafana">Grafana</a></li>
+<li><a href="#influxdb">Influxdb</a></li>
+<li><a href="#collectdb">Collectdb</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="allgemeines">Allgemeines</h1>
+<p>Monitoring Container zur Auswertung von Lasttest zwischen einer SinaBox und dem IPSEC Lastcontainer.</p>
+<h1 id="aufbau">Aufbau</h1>
+<p>Der Monitoring Container besteht aus folgenden Komponenten/Containern:</p>
+<h2 id="grafana">Grafana</h2>
+<p><a href="http://grafana.org/">Grafana</a> ist ein HTML-Frontend zur Visualisierung der Daten</p>
+<h2 id="influxdb">Influxdb</h2>
+<p><a href="https://influxdata.com/">Influxb</a> ist ein K/V-Store in dem die Messwerte gespeicher werden</p>
+<h2 id="collectdb">Collectdb</h2>
+<p><a href="https://collectd.org/">Collectd</a>: Sammelt die Daten der BOX per SNMP ein und schreib sie in den K/V-Store</p>
+<p>Zum Start des Container bitte immer <em>docker-compose up</em> verwenden, da zwischen den einzelnen Containern Abhängigkeiten bestehenen welche so autom. aufgelöst werden.</p>
+</body>
+</html>

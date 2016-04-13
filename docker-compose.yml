@@ -1,0 +1,69 @@
+version: '2'
+
+services:
+    influxdb:
+        build: influxdb
+        image: monitor.influxdb:latest
+        networks:
+            - monitor
+        ports:
+            - "8083:8083"
+            - "8086:8086"
+        env_file:
+            - influxdb/assets/env/certificate.env
+            - influxdb/assets/env/influxdb.env
+        volumes:
+            - influxdb_data:/data
+        privileged: false
+        restart:    always
+        tty:        true
+
+    grafana:
+        build: grafana
+        image: monitor.grafana:latest
+        ports:
+            - "3000:3000"
+        links:
+            - influxdb
+        networks:
+            - monitor
+        env_file:
+            - grafana/assets/env/certificate.env
+            - grafana/assets/env/grafana.env
+        volumes:
+            - grafana_lib:/var/lib/grafana
+            - grafana_log:/var/log/grafana
+            - grafana_etc:/etc/grafana
+        privileged: false
+        restart:    always
+        tty:        true
+
+    collectd:
+        build: collectd
+        image: monitor.collectd:latest
+        links:
+            - influxdb
+        networks:
+            - monitor
+        env_file:
+            - collectd/assets/env/collectd.env
+        privileged: false
+        restart:    always
+        tty:        true
+
+networks:
+    monitor:
+        driver: bridge
+        driver_opts:
+            com.docker.network.bridge.name: "monitor"
+
+volumes:
+    influxdb_data:
+        driver: local
+
+    grafana_lib:
+        driver: local
+    grafana_log:
+        driver: local
+    grafana_etc:
+        driver: local
